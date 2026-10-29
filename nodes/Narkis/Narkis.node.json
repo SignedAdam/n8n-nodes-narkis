@@ -1,0 +1,14 @@
+{
+	"node": "n8n-nodes-narkis.narkis",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Miscellaneous"],
+	"alias": ["headshot", "photographer", "photography", "directory", "photo guide"],
+	"resources": {
+		"primaryDocumentation": [
+			{
+				"url": "https://github.com/SignedAdam/n8n-nodes-narkis#readme"
+			}
+		]
+	}
+}

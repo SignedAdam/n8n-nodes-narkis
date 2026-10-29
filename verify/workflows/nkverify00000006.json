@@ -1,0 +1,48 @@
+{
+	"id": "nkverify00000006",
+	"name": "Location filter (us / texas, limit 5)",
+	"active": false,
+	"nodes": [
+		{
+			"parameters": {},
+			"id": "t",
+			"name": "Start",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [0, 0]
+		},
+		{
+			"parameters": {
+				"resource": "location",
+				"operation": "getAll",
+				"limit": 5,
+				"filters": {
+					"country": "us",
+					"state": "texas"
+				}
+			},
+			"id": "n",
+			"name": "Narkis",
+			"type": "n8n-nodes-narkis.narkis",
+			"typeVersion": 1,
+			"position": [220, 0]
+		}
+	],
+	"connections": {
+		"Start": {
+			"main": [
+				[
+					{
+						"node": "Narkis",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		}
+	},
+	"settings": {
+		"executionOrder": "v1"
+	},
+	"pinData": {}
+}

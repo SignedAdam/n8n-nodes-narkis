@@ -1,0 +1,44 @@
+{
+	"id": "nkverify00000013",
+	"name": "Error: invalid path",
+	"active": false,
+	"nodes": [
+		{
+			"parameters": {},
+			"id": "t",
+			"name": "Start",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [0, 0]
+		},
+		{
+			"parameters": {
+				"resource": "price",
+				"operation": "getByLocation",
+				"path": "us/../etc"
+			},
+			"id": "n",
+			"name": "Narkis",
+			"type": "n8n-nodes-narkis.narkis",
+			"typeVersion": 1,
+			"position": [220, 0]
+		}
+	],
+	"connections": {
+		"Start": {
+			"main": [
+				[
+					{
+						"node": "Narkis",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		}
+	},
+	"settings": {
+		"executionOrder": "v1"
+	},
+	"pinData": {}
+}

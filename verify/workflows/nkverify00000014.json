@@ -1,0 +1,125 @@
+{
+	"id": "nkverify00000014",
+	"name": "AI Agent with Narkis tools",
+	"active": false,
+	"settings": {
+		"executionOrder": "v1"
+	},
+	"pinData": {},
+	"nodes": [
+		{
+			"parameters": {},
+			"id": "t",
+			"name": "Start",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [0, 0]
+		},
+		{
+			"parameters": {
+				"promptType": "define",
+				"text": "Find three headshot photographers in Austin, Texas and tell me the median listed headshot price there. Answer in two short sentences and name the photographers.",
+				"options": {
+					"systemMessage": "You answer questions about professional headshot photographers using the Narkis tools. Only state facts returned by the tools."
+				}
+			},
+			"id": "a",
+			"name": "AI Agent",
+			"type": "@n8n/n8n-nodes-langchain.agent",
+			"typeVersion": 3.1,
+			"position": [260, 0]
+		},
+		{
+			"parameters": {
+				"model": "openai/gpt-4o-mini",
+				"options": {
+					"temperature": 0
+				}
+			},
+			"id": "m",
+			"name": "OpenRouter Chat Model",
+			"type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+			"typeVersion": 1,
+			"position": [160, 220],
+			"credentials": {
+				"openRouterApi": {
+					"id": "nkverifyopenrout",
+					"name": "OpenRouter (verify)"
+				}
+			}
+		},
+		{
+			"parameters": {
+				"toolDescription": "Get headshot photographers listed in the Narkis directory for a place, given its directory path (lowercase slugs such as us/texas/austin).",
+				"resource": "photographer",
+				"operation": "getManyByLocation",
+				"path": "={{ $fromAI('path', 'Narkis directory path: lowercase country/state/city slugs, for example us/texas/austin', 'string') }}",
+				"limit": 3
+			},
+			"id": "p",
+			"name": "Narkis Photographers",
+			"type": "n8n-nodes-narkis.narkisTool",
+			"typeVersion": 1,
+			"position": [320, 220]
+		},
+		{
+			"parameters": {
+				"toolDescription": "Get listed headshot photographer price statistics (median, min, max, average range) for a place, given its Narkis directory path (lowercase slugs such as us/texas/austin).",
+				"resource": "price",
+				"operation": "getByLocation",
+				"path": "={{ $fromAI('path', 'Narkis directory path: lowercase country/state/city slugs, for example us/texas/austin', 'string') }}"
+			},
+			"id": "q",
+			"name": "Narkis Prices",
+			"type": "n8n-nodes-narkis.narkisTool",
+			"typeVersion": 1,
+			"position": [480, 220]
+		}
+	],
+	"connections": {
+		"Start": {
+			"main": [
+				[
+					{
+						"node": "AI Agent",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		},
+		"OpenRouter Chat Model": {
+			"ai_languageModel": [
+				[
+					{
+						"node": "AI Agent",
+						"type": "ai_languageModel",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Narkis Photographers": {
+			"ai_tool": [
+				[
+					{
+						"node": "AI Agent",
+						"type": "ai_tool",
+						"index": 0
+					}
+				]
+			]
+		},
+		"Narkis Prices": {
+			"ai_tool": [
+				[
+					{
+						"node": "AI Agent",
+						"type": "ai_tool",
+						"index": 0
+					}
+				]
+			]
+		}
+	}
+}

@@ -1,0 +1,44 @@
+{
+	"id": "nkverify00000011",
+	"name": "Error: uncovered path",
+	"active": false,
+	"nodes": [
+		{
+			"parameters": {},
+			"id": "t",
+			"name": "Start",
+			"type": "n8n-nodes-base.manualTrigger",
+			"typeVersion": 1,
+			"position": [0, 0]
+		},
+		{
+			"parameters": {
+				"resource": "photographer",
+				"operation": "getManyByLocation",
+				"path": "us/texas/atlantis"
+			},
+			"id": "n",
+			"name": "Narkis",
+			"type": "n8n-nodes-narkis.narkis",
+			"typeVersion": 1,
+			"position": [220, 0]
+		}
+	],
+	"connections": {
+		"Start": {
+			"main": [
+				[
+					{
+						"node": "Narkis",
+						"type": "main",
+						"index": 0
+					}
+				]
+			]
+		}
+	},
+	"settings": {
+		"executionOrder": "v1"
+	},
+	"pinData": {}
+}
