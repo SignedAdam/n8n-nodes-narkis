@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-narkis",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n community node for the public Narkis headshot photographer directory: photographers, listed prices, covered locations and photo guides. No credentials needed.",
 	"license": "MIT",
 	"homepage": "https://github.com/SignedAdam/n8n-nodes-narkis#readme",
